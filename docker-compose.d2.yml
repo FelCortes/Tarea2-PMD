@@ -1,0 +1,12 @@
+# Solo para el experimento D.2: un Redis SIN persistencia, en el puerto 6380 (no forma parte del pipeline).
+services:
+  redis_nop:
+    image: redis:7
+    container_name: t2-redis-nop
+    ports: ["6380:6379"]
+    command: ["redis-server", "--save", "", "--appendonly", "no"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 3s
+      timeout: 3s
+      retries: 10
